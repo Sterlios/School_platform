@@ -1,6 +1,6 @@
 @School_Platform.Server_HostAddress = http://localhost:5270
 
-GET {{School_Platform.Server_HostAddress}}/weatherforecast/
+GET {{School_Platform.Server_HostAddress}}/courses/
 Accept: application/json
 
 ###

@@ -1,5 +1,5 @@
-
 using Microsoft.EntityFrameworkCore;
+using React.AspNet;
 using School_Platform.Server.Models;
 
 namespace School_Platform.Server
@@ -19,12 +19,25 @@ namespace School_Platform.Server
             builder.Services.AddControllers();
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
+            builder.Services.AddReact();
+            builder.Services.AddCors(options =>
+            {
+                options.AddPolicy("AllowReactApp",
+                    policy =>
+                    {
+                        policy.WithOrigins("https://localhost:5173/")
+                              .AllowAnyOrigin()
+                              .AllowAnyMethod()
+                              .AllowAnyHeader();
+                    });
+            });
 
             var app = builder.Build();
 
             app.UseDefaultFiles();
             app.UseStaticFiles();
 
+            app.UseCors("AllowReactApp");
             app.MapIdentityApi<User>();
 
             if (app.Environment.IsDevelopment())
@@ -34,7 +47,6 @@ namespace School_Platform.Server
             }
 
             app.UseHttpsRedirection();
-
             app.UseAuthorization();
 
             app.MapControllers();
