@@ -1,4 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using School_Platform.Server.Models;
+using School_Platform.Server.Services;
 
 namespace School_Platform.Server.Controllers
 {
@@ -6,15 +8,20 @@ namespace School_Platform.Server.Controllers
     [Route("courses")]
     public class CourseController : Controller
     {
-        private readonly ApplicationDbContext _context;
+        private readonly CoursesService _coursesService;
 
-        public CourseController(ApplicationDbContext context)
+        public CourseController(CoursesService coursesService)
         {
-            _context = context;
+            _coursesService = coursesService;
         }
 
         [HttpGet]
         public JsonResult Get() =>
-            Json(_context.Courses.ToList());
+            Json(_coursesService.GetAll());
+
+        [HttpGet]
+        [Route("course")]
+        public Course GetById(int id) =>
+            _coursesService.Get(id);
     }
 }

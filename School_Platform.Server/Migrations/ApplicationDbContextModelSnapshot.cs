@@ -34,7 +34,7 @@ namespace School_Platform.Server.Migrations
 
                     b.HasIndex("StudentsId");
 
-                    b.ToTable("CourseStudent");
+                    b.ToTable("CourseStudent", (string)null);
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
@@ -187,7 +187,7 @@ namespace School_Platform.Server.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Courses");
+                    b.ToTable("Courses", (string)null);
                 });
 
             modelBuilder.Entity("School_Platform.Server.Models.Lesson", b =>
@@ -213,7 +213,7 @@ namespace School_Platform.Server.Migrations
 
                     b.HasIndex("ModuleId");
 
-                    b.ToTable("Lessons");
+                    b.ToTable("Lessons", (string)null);
                 });
 
             modelBuilder.Entity("School_Platform.Server.Models.Module", b =>
@@ -239,7 +239,7 @@ namespace School_Platform.Server.Migrations
 
                     b.HasIndex("CourseId");
 
-                    b.ToTable("Modules");
+                    b.ToTable("Modules", (string)null);
                 });
 
             modelBuilder.Entity("School_Platform.Server.Models.Student", b =>
@@ -258,7 +258,7 @@ namespace School_Platform.Server.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("Students");
+                    b.ToTable("Students", (string)null);
                 });
 
             modelBuilder.Entity("School_Platform.Server.Models.User", b =>

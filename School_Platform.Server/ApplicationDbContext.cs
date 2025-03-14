@@ -13,7 +13,15 @@ namespace School_Platform.Server
         public DbSet<Module> Modules { get; set; }
         public DbSet<Lesson> Lessons { get; set; }
 
-        protected override void OnModelCreating(ModelBuilder builder) =>
+        protected override void OnModelCreating(ModelBuilder builder)
+        {
+            builder.Entity<Course>().ToTable("Courses");
+            builder.Entity<Module>().ToTable("Modules");
+            builder.Entity<Student>().ToTable("Students");
+            builder.Entity<User>().ToTable("Users");
+            builder.Entity<Lesson>().ToTable("Lessons");
+
             base.OnModelCreating(builder);
+        }
     }
 }

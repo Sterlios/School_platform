@@ -1,6 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using React.AspNet;
 using School_Platform.Server.Models;
+using School_Platform.Server.Services;
 
 namespace School_Platform.Server
 {
@@ -20,6 +21,7 @@ namespace School_Platform.Server
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
             builder.Services.AddReact();
+            builder.Services.AddScoped<CoursesService>();
             builder.Services.AddCors(options =>
             {
                 options.AddPolicy("AllowReactApp",
