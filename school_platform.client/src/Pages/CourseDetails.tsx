@@ -15,14 +15,17 @@ interface Course {
     modules: Module[];
 }
 
-function CourseDetails(id) {
+export function CourseDetails({ id}) {
     
     const [course, setCourse] = useState<Course | null>(null);
-
+    console.log("id:", course);
     useEffect(() => {
-        fetch(`https://localhost:7192/courses/${id}`)
+        fetch("https://localhost:7192/courses/course/#id")
             .then(response => response.json())
-            .then(data => setCourse(data))
+            .then(data => {
+                console.log("Загруженные курсы:", data);
+                setCourse(data);
+            })
             .catch(error => console.error("Ошибка загрузки курса:", error));
     }, [id]);
 

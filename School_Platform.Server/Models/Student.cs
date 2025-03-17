@@ -6,6 +6,6 @@
         public string UserId { get; set; }
 
         public User User { get; set; }
-        public List<Course> Courses { get; set; }
+        public List<Course> Courses { get; set; } = new List<Course>();
     }
 }

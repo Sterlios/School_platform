@@ -31,3 +31,22 @@ body {
     color: #ccc;
     transition: left 250ms ease;
 }
+
+.courses-dashboard {
+    display: grid;
+    flex-direction: column;
+    align-items: stretch;
+    margin-top: 0.5rem !important;
+}
+
+.course-box {
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    position: relative;
+    margin-top: 30px;
+    border: 2px, solid, gray;
+    padding: 0;
+    background-color: #3b2a2a;
+    border: 1px solid #402f2b;
+    border-radius: 5px;
+    position: relative;
+}

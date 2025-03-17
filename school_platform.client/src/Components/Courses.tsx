@@ -1,6 +1,6 @@
 ﻿import * as React from "react"
 import { useState, useEffect } from "react";
-import CourseDetails from "../Pages/CourseDetails";
+import { CourseDetails } from "../Pages/CourseDetails";
 import { useNavigate } from "react-router-dom";
 
 interface Course {
@@ -22,8 +22,8 @@ function Courses() {
     }, []);
 
     const coursesList = courses.length > 0 ? (courses.map(course => (
-        <div key={course.id}>
-            <CourseDetails />{course.name} : {course.description}
+        <div className='course-box' key={course.id}>
+            {course.name} : {course.description}
         </div>
     ))) : (
         <p>Нет доступных курсов</p>
@@ -32,7 +32,9 @@ function Courses() {
     return (
         <div>
             <h2>Список курсов</h2>
+            <div className='courses-dashboard'>
                 {coursesList}
+            </div>
         </div>
     );
 }

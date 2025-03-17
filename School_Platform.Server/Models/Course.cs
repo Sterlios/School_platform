@@ -6,7 +6,7 @@
         public string Name { get; set; }
         public string Description { get; set; }
 
-        public List<Module> Modules { get; set; }
-        public List<Student> Students { get; set; }
+        public List<Module> Modules { get; set; } = new List<Module>();
+        public List<Student> Students { get; set; } = new List<Student>();
     }
 }
