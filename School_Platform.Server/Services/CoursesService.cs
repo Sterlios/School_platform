@@ -48,29 +48,7 @@ namespace School_Platform.Server.Services
             {
                 foreach (var moduleDto in courseDto.Modules)
                 {
-                    Module module = new Module()
-                    {
-                        Name = moduleDto.Name,
-                        Description = moduleDto.Description,
-                        Course = course
-                    };
-
-                    if (moduleDto.Lessons.Any())
-                    {
-                        foreach (var lessonDto in moduleDto.Lessons)
-                        {
-                            Lesson lesson = new Lesson()
-                            {
-                                Name = lessonDto.Name,
-                                Description = lessonDto.Description,
-                                Module = module
-                            };
-
-                            module.Lessons.Add(lesson);
-                        }
-                    }
-
-                    course.Modules.Add(module);
+                    CreateModule(course, moduleDto);
                 }
             }
 
@@ -80,23 +58,42 @@ namespace School_Platform.Server.Services
 
         internal void Delete(int id)
         {
-            Course course = _context.Courses.Where(c => c.Id == id)
+            _context.Courses.Where(c => c.Id == id)
             .Include(c => c.Modules)
-                .ThenInclude(m => m.Lessons).FirstOrDefault();
+                .ThenInclude(m => m.Lessons)
+            .ExecuteDelete();
+        }
 
-            if (course is not null)
+        private void CreateModule(Course toCourse, ModuleDTO moduleDto)
+        {
+            Module module = new Module()
             {
-                foreach (Module module in course.Modules)
+                Name = moduleDto.Name,
+                Description = moduleDto.Description,
+                Course = toCourse
+            };
+
+            if (moduleDto.Lessons.Any())
+            {
+                foreach (var lessonDto in moduleDto.Lessons)
                 {
-                    foreach (Lesson lesson in module.Lessons)
-                        _context.Lessons.Remove(lesson);
-
-                    _context.Modules.Remove(module);
+                    CreateLesson(module, lessonDto);
                 }
-
-                _context.Courses.Remove(course);
-                _context.SaveChanges();
             }
+
+            toCourse.Modules.Add(module);
+        }
+
+        private void CreateLesson(Module toModule, LessonDTO lessonDto)
+        {
+            Lesson lesson = new Lesson()
+            {
+                Name = lessonDto.Name,
+                Description = lessonDto.Description,
+                Module = toModule
+            };
+
+            toModule.Lessons.Add(lesson);
         }
     }
 }
