@@ -14,29 +14,33 @@ namespace School_Platform.Server.Services
             _context = context;
         }
 
-        internal List<Course> GetAll() =>
-            _context.Courses.ToList();
+        internal IEnumerable<SmallCourseInfoDTO> GetAll() =>
+            _context.Courses.Select(c => new SmallCourseInfoDTO()
+            {
+                Id = c.Id,
+                Name = c.Name,
+                Description = c.Description
+            });
 
-        internal Course? Get(int id) =>
+        internal CourseStructureDTO? Get(int id) =>
             _context.Courses
             .Where(c => c.Id == id)
             .Include(c => c.Modules)
-            .Select(c => new Course
+            .Select(c => new CourseStructureDTO
             {
                 Id = c.Id,
                 Name = c.Name,
                 Description = c.Description,
-                Modules = c.Modules.Select(m => new Module
+                Modules = c.Modules.Select(m => new SmallModuleInfoDTO
                 {
                     Id = m.Id,
                     Name = m.Name,
-                    Description = m.Description,
-                    CourseId = m.CourseId
+                    Description = m.Description
                 }).ToList()
             })
             .FirstOrDefault();
 
-        public void Create(CourseDTO courseDto)
+        public void Create(CreatedCourseDTO courseDto)
         {
             Course course = new Course()
             {

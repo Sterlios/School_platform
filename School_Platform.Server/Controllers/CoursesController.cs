@@ -1,6 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using School_Platform.Server.DTO;
-using School_Platform.Server.Models;
 using School_Platform.Server.Services;
 
 namespace School_Platform.Server.Controllers
@@ -15,16 +14,16 @@ namespace School_Platform.Server.Controllers
             _coursesService = coursesService;
 
         [HttpGet]
-        public List<Course> GetAll() =>
+        public IEnumerable<SmallCourseInfoDTO> GetAll() =>
             _coursesService.GetAll();
 
         [HttpGet]
         [Route("{id}")]
-        public Course GetById(int id) =>
+        public CourseStructureDTO GetById(int id) =>
             _coursesService.Get(id);
 
         [HttpPut]
-        public void Create(CourseDTO course)
+        public void Create(CreatedCourseDTO course)
         {
             _coursesService.Create(course);
         }
