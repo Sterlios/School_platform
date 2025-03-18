@@ -23,15 +23,22 @@ namespace School_Platform.Server.Controllers
             _coursesService.Get(id);
 
         [HttpPut]
-        public void Create(CreatedCourseDTO course)
+        public void CreateCourse(CreatedCourseDTO course)
         {
-            _coursesService.Create(course);
+            _coursesService.CreateCourse(course);
+        }
+
+        [HttpPut]
+        [Route("{course.id}")]
+        public void CreateModule(CreatedModuleDTO module)
+        {
+            _coursesService.CreateModule(module);
         }
 
         [HttpDelete]
-        public void Delete(int id)
+        public void DeleteCourse(int id)
         {
-            _coursesService.Delete(id);
+            _coursesService.DeleteCourse(id);
         }
     }
 }

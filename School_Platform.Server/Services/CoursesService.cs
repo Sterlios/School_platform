@@ -40,27 +40,41 @@ namespace School_Platform.Server.Services
             })
             .FirstOrDefault();
 
-        public void Create(CreatedCourseDTO courseDto)
+        public void CreateCourse(CreatedCourseDTO courseDto)
         {
-            Course course = new Course()
-            {
-                Name = courseDto.Name,
-                Description = courseDto.Description
-            };
+            string query =
+                "INSERT INTO \"Courses\" (\"Name\",\"Description\")" +
+                $"\n\tVALUES ('{courseDto.Name}', '{courseDto.Description}');";
 
             if (courseDto.Modules.Any())
             {
-                foreach (var moduleDto in courseDto.Modules)
+                foreach (CreatedModuleDTO moduleDto in courseDto.Modules)
                 {
-                    CreateModule(course, moduleDto);
+                    query +=
+                        "\nINSERT INTO \"Modules\" (\"Name\",\"Description\",\"CourseId\")" +
+                        $"\n\tSELECT '{moduleDto.Name}', '{moduleDto.Description}', \"Id\" " +
+                        "\n\tFROM \"Courses\"" +
+                        $"\n\tWHERE \"Name\" = '{courseDto.Name}';";
+
+                    if (moduleDto.Lessons.Any())
+                    {
+                        foreach (var lessonDto in moduleDto.Lessons)
+                        {
+                            query +=
+                                "\nINSERT INTO \"Lessons\" (\"Name\",\"Description\",\"ModuleId\")" +
+                                $"\n\tSELECT '{lessonDto.Name}', '{lessonDto.Description}', \"Modules\".\"Id\" " +
+                                "\n\tFROM \"Modules\"" +
+                                "\n\tINNER JOIN \"Courses\" on \"Courses\".\"Id\" = \"Modules\".\"CourseId\"" +
+                                $"\n\tWHERE \"Modules\".\"Name\" = '{moduleDto.Name}' AND \"Courses\".\"Name\" = '{courseDto.Name}';";
+                        }
+                    }
                 }
             }
 
-            _context.Courses.Add(course);
-            _context.SaveChanges();
+            _context.Database.ExecuteSqlRaw(query);
         }
 
-        internal void Delete(int id)
+        internal void DeleteCourse(int id)
         {
             _context.Courses.Where(c => c.Id == id)
             .Include(c => c.Modules)
@@ -68,36 +82,37 @@ namespace School_Platform.Server.Services
             .ExecuteDelete();
         }
 
-        private void CreateModule(Course toCourse, ModuleDTO moduleDto)
+        internal void CreateModule(CreatedModuleDTO moduleDto)
         {
             Module module = new Module()
             {
                 Name = moduleDto.Name,
                 Description = moduleDto.Description,
-                Course = toCourse
+                Course = _context.Courses.Where(c => c.Id == moduleDto.CourseId).FirstOrDefault()
             };
+
+            _context.Modules.Add(module);
 
             if (moduleDto.Lessons.Any())
             {
                 foreach (var lessonDto in moduleDto.Lessons)
                 {
-                    CreateLesson(module, lessonDto);
+                    lessonDto.ModuleId = module.Id;
+                    CreateLesson(lessonDto);
                 }
             }
-
-            toCourse.Modules.Add(module);
         }
 
-        private void CreateLesson(Module toModule, LessonDTO lessonDto)
+        private void CreateLesson(LessonDTO lessonDto)
         {
             Lesson lesson = new Lesson()
             {
                 Name = lessonDto.Name,
                 Description = lessonDto.Description,
-                Module = toModule
+                Module = _context.Modules.Where(m => m.Id == lessonDto.ModuleId).FirstOrDefault()
             };
 
-            toModule.Lessons.Add(lesson);
+            _context.Lessons.Add(lesson);
         }
     }
 }
