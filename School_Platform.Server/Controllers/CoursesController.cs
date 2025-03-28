@@ -35,6 +35,13 @@ namespace School_Platform.Server.Controllers
             _coursesService.CreateModule(module);
         }
 
+        [HttpPut]
+        [Route("lesson")]
+        public void CreateLesson(LessonDTO lesson)
+        {
+            _coursesService.CreateLesson(lesson);
+        }
+
         [HttpDelete]
         public void DeleteCourse(int id)
         {

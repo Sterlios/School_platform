@@ -1,5 +1,4 @@
-﻿
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using School_Platform.Server.DTO;
 using School_Platform.Server.Models;
 
@@ -42,6 +41,24 @@ namespace School_Platform.Server.Services
 
         public void CreateCourse(CreatedCourseDTO courseDto)
         {
+            ArgumentNullException.ThrowIfNullOrWhiteSpace(courseDto.Name);
+
+            if (courseDto.Modules is null || courseDto.Modules.Count == 0)
+                throw new ArgumentException("Course must has modules.");
+
+            foreach (var module in courseDto.Modules)
+            {
+                ArgumentNullException.ThrowIfNullOrWhiteSpace(module.Name);
+
+                if (module.Lessons is null || module.Lessons.Count == 0)
+                    throw new ArgumentException("Module must has lessons.");
+
+                foreach (var lesson in module.Lessons)
+                {
+                    ArgumentNullException.ThrowIfNullOrWhiteSpace(lesson.Name);
+                }
+            }
+
             string query =
                 "INSERT INTO \"Courses\" (\"Name\",\"Description\")" +
                 $"\n\tVALUES ('{courseDto.Name}', '{courseDto.Description}');";
@@ -103,16 +120,23 @@ namespace School_Platform.Server.Services
             }
         }
 
-        private void CreateLesson(LessonDTO lessonDto)
+        public void CreateLesson(LessonDTO lessonDto)
         {
+            ArgumentException.ThrowIfNullOrWhiteSpace(lessonDto.Name);
+
+            var module = _context.Modules.Where(m => m.Id == lessonDto.ModuleId).FirstOrDefault()
+                ?? throw new InvalidOperationException("Module is not found.");
+
             Lesson lesson = new Lesson()
             {
                 Name = lessonDto.Name,
                 Description = lessonDto.Description,
-                Module = _context.Modules.Where(m => m.Id == lessonDto.ModuleId).FirstOrDefault()
+                Module = module
             };
 
             _context.Lessons.Add(lesson);
+
+            _context.SaveChanges();
         }
     }
 }
