@@ -9,6 +9,7 @@ namespace School_Platform.Server
     {
         public static void Main(string[] args)
         {
+            throw new InvalidOperationException();
             var builder = WebApplication.CreateBuilder(args);
 
             var connectionString = builder.Configuration.GetConnectionString("SchoolDb");
