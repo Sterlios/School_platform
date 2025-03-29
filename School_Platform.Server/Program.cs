@@ -9,7 +9,7 @@ namespace School_Platform.Server
     {
         public static void Main(string[] args)
         {
-            //Task1
+            //Task1þé
             var builder = WebApplication.CreateBuilder(args);
 
             var connectionString = builder.Configuration.GetConnectionString("SchoolDb");
