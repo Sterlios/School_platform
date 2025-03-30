@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace CourseApp
 {
-    public class ApplicationDbContext : DbContext
+    internal class ApplicationDbContext : DbContext
     {
         public DbSet<Course> Courses { get; set; }
         public DbSet<Module> Modules { get; set; }

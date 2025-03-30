@@ -1,10 +1,12 @@
-﻿namespace CourseApp.Services
-{
-    public class CourseService
-    {
-        private ApplicationDbContext _context;
+﻿using CourseApp.Services.Interfaces;
 
-        public CourseService(ApplicationDbContext context) =>
-            _context = context;
+namespace CourseApp.Services
+{
+    internal class CourseService : ICourseService
+    {
+        private ICourseRepository _repository;
+
+        public CourseService(ICourseRepository repository) =>
+            _repository = repository;
     }
 }
