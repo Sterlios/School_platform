@@ -1,4 +1,5 @@
-﻿using CourseApp.Services.Interfaces;
+﻿using CourseApp.DTO;
+using CourseApp.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 
 namespace CourseApp.Controllers

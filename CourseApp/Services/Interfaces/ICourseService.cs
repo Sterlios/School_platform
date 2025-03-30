@@ -1,4 +1,6 @@
 ﻿
+using CourseApp.DTO;
+
 namespace CourseApp.Services.Interfaces
 {
     public interface ICourseService
