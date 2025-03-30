@@ -6,7 +6,7 @@ namespace CourseApp.Services
 {
     internal class CourseService : ICourseService
     {
-        private ICourseRepository _repository;
+        private readonly ICourseRepository _repository;
 
         public CourseService(ICourseRepository repository) =>
             _repository = repository;

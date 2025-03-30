@@ -1,6 +1,6 @@
 ﻿namespace CourseApp.Models
 {
-    internal class Module
+    public class Module
     {
         public int Id { get; set; }
         public required string Name { get; set; }

@@ -5,10 +5,10 @@ namespace CourseApp.Services.Interfaces
 {
     public interface ICourseService
     {
-        Task CreateCourse(CourseDTO course);
+        Task<CourseDTO> CreateCourse(CourseDTO course);
         Task<bool> DeleteCourse(int id);
-        Task GetAllCourses();
-        Task GetCourse(int id);
-        Task UpdateCourse(CourseDTO course);
+        Task<IEnumerable<CourseDTO>> GetAllCourses();
+        Task<CourseDTO> GetCourse(int id);
+        Task<CourseDTO> UpdateCourse(CourseDTO course);
     }
 }

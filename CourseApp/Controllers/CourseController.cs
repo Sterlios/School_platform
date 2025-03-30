@@ -55,7 +55,7 @@ namespace CourseApp.Controllers
         {
             var deleted = await _courseService.DeleteCourse(id);
 
-            if (!deleted)
+            if (deleted == false)
                 return NotFound();
 
             return NoContent();
