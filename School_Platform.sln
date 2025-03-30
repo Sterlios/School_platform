@@ -7,6 +7,12 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "School_Platform.Server", "S
 EndProject
 Project("{54A90642-561A-4BB1-A94E-469ADEE60C69}") = "school_platform.client", "school_platform.client\school_platform.client.esproj", "{522EC504-8BE0-4860-B8B7-987816A5BB54}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Backend", "Backend", "{886995AD-6D39-413C-9512-827FEE55EAEF}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Services", "Services", "{19B31E2E-72E8-4F32-A262-577EC8B71AFC}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CourseApp", "CourseApp\CourseApp.csproj", "{9B18D2D2-405D-4EAE-B61B-50CCD5AFA1C6}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -23,9 +29,17 @@ Global
 		{522EC504-8BE0-4860-B8B7-987816A5BB54}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{522EC504-8BE0-4860-B8B7-987816A5BB54}.Release|Any CPU.Build.0 = Release|Any CPU
 		{522EC504-8BE0-4860-B8B7-987816A5BB54}.Release|Any CPU.Deploy.0 = Release|Any CPU
+		{9B18D2D2-405D-4EAE-B61B-50CCD5AFA1C6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9B18D2D2-405D-4EAE-B61B-50CCD5AFA1C6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9B18D2D2-405D-4EAE-B61B-50CCD5AFA1C6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9B18D2D2-405D-4EAE-B61B-50CCD5AFA1C6}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{19B31E2E-72E8-4F32-A262-577EC8B71AFC} = {886995AD-6D39-413C-9512-827FEE55EAEF}
+		{9B18D2D2-405D-4EAE-B61B-50CCD5AFA1C6} = {19B31E2E-72E8-4F32-A262-577EC8B71AFC}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {4F943C74-6B66-42D2-9C42-067ACA79BEFC}
