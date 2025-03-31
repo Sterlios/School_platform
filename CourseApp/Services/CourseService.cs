@@ -11,10 +11,10 @@ namespace CourseApp.Services
         public CourseService(ICourseRepository repository) =>
             _repository = repository;
 
-        public Task CreateCourse(CourseDTO course) => throw new NotImplementedException();
+        public Task<CourseDTO> CreateCourse(CourseDTO course) => throw new NotImplementedException();
         public Task<bool> DeleteCourse(int id) => throw new NotImplementedException();
-        public Task GetAllCourses() => throw new NotImplementedException();
-        public Task GetCourse(int id) => throw new NotImplementedException();
-        public Task UpdateCourse(CourseDTO course) => throw new NotImplementedException();
+        public Task<IEnumerable<CourseDTO>> GetAllCourses() => throw new NotImplementedException();
+        public Task<CourseDTO> GetCourse(int id) => throw new NotImplementedException();
+        public Task<CourseDTO> UpdateCourse(CourseDTO course) => throw new NotImplementedException();
     }
 }

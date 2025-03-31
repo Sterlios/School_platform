@@ -43,9 +43,6 @@ namespace CourseApp.Controllers
         [HttpPut("{id}")]
         public async Task<IActionResult> UpdateCourse(int id, [FromBody] CourseDTO course)
         {
-            if (id != course.Id)
-                return BadRequest("ID mismatch");
-
             var updatedCourse = await _courseService.UpdateCourse(course);
             return Ok(updatedCourse);
         }
