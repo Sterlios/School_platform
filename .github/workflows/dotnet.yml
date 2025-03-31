@@ -2,7 +2,7 @@ name: CI/CD Pipeline for School_Platform
 
 on:
   push:
-    branches: [ "master", "Develop" ]
+    branches: [ "master", "Develop", "feature-issue-5" ]
   pull_request:
     branches: [ "master", "Develop" ]
 
